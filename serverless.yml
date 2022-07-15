@@ -23,6 +23,11 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs12.x
+  deploymentBucket:
+    name: ocs-example-serverless-my-lambda-function-${opt:stage}-deploy
+  apiGateway:
+    apiKeys:
+      - value:  ${ssm(us-west-2):ocs-${opt:stage}}
 
 #  you can overwrite defaults here
 #  stage: dev
@@ -50,6 +55,7 @@ functions:
         - http:
             path: /hello
             method: get
+            private: true
 #      - httpApi:
 #          path: /users/create
 #          method: get
@@ -97,3 +103,6 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+plugins:
+  - serverless-deployment-bucket
