@@ -60,7 +60,7 @@ functions:
 #    Check the event documentation for details
     events:
         - http:
-            path: /${self:custom.${self:custom:stage}.path}
+            path: /${self:custom.${self:custom.stage}.path}
             method: get
             private: true
 #      - httpApi:
