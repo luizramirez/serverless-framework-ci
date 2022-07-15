@@ -20,6 +20,13 @@ org: lramirez
 # Check out our docs for more details
 frameworkVersion: '3'
 
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  dev:
+    path: hello
+  prod:
+    path: hi
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -53,7 +60,7 @@ functions:
 #    Check the event documentation for details
     events:
         - http:
-            path: /hello
+            path: /${self:custom.${self:custom.stage}.path}
             method: get
             private: true
 #      - httpApi:
